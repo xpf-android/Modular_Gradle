@@ -1,0 +1,38 @@
+// 添加多个自定义属性，可以通过ext代码块
+ext{
+    username = "xpf"
+
+    // 生产/开发环境(true正式环境，false开发环境)
+    isRelease = false
+
+    // 建立Map存储，对象名、key都可以自定义，groovy糖果语法，非常灵活
+
+    androidId = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            versionCode      : 1,
+            versionName      : "1.0",
+            testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner"
+    ]
+
+    appId = [
+            applicationId: "com.xpf.modular_gradle"
+    ]
+
+    //生产开发环境URL
+    url = [
+            "debug_entrance": "https://11.22.33.44/debug",
+            "release_entrance": "https://11.22.33.44./release"
+    ]
+
+    //依赖相关
+    dependencies_impl = [
+            appcompat: 'androidx.appcompat:appcompat:1.2.0',
+            constraintlayout:'androidx.constraintlayout:constraintlayout:2.0.4',
+            junit: 'junit:junit:4.12',
+            test: 'androidx.test.ext:junit:1.1.2',
+            espresso: 'androidx.test.espresso:espresso-core:3.3.0'
+    ]
+}

@@ -1,0 +1,2 @@
+rootProject.name='Modular_Gradle'
+include ':app'

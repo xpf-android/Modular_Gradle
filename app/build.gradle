@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+
+//1.打印信息
+println("hello world!")
+println"hello world!"
+println'hello world!'
+//效果一样：hello world!
+println 666
+//666
+
+//2.变量的使用方式
+//2.1直接使用
+println username//xpf
+//正确语法 ${rootProject.ext.username}
+println "${rootProject.ext.username}"//xpf
+//2.2间接使用(定义变量)
+def name = rootProject.ext.username
+println "name: " + name //name: xpf
+
+//糖果语法，弱类型，类型可以推倒
+rootProject.ext.username = 168
+println username//168
+
+// 这一段不写就是直接使用的方式，能够正常运行
+// 定义变量的方式
+def androidId = rootProject.ext.androidId
+def appId = rootProject.ext.appId
+def dependencies_impl = rootProject.ext.dependencies_impl
+
+android {
+    compileSdkVersion androidId.compileSdkVersion
+    buildToolsVersion androidId.buildToolsVersion
+
+    defaultConfig {
+        applicationId appId.applicationId
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+
+        testInstrumentationRunner androidId.testInstrumentationRunner
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "debug_url", "\"${url.debug_entrance}\"")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField("String", "release_url", "\"${url.release_entrance}\"")
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+/*dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation dependencies_impl.appcompat
+    implementation dependencies_impl.constraintlayout
+    testImplementation dependencies_impl.junit
+    androidTestImplementation dependencies_impl.test
+    androidTestImplementation dependencies_impl.espresso
+}*/
+
+//dependencies里面的依赖引入方式，好比Map的形式，有key, value，循环遍历引入依赖
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    dependencies_impl.each {k, v -> implementation v}
+}
