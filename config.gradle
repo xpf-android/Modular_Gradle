@@ -7,7 +7,7 @@ ext{
 
     // 建立Map存储，对象名、key都可以自定义，groovy糖果语法，非常灵活
 
-    androidID = [
+    androidId = [
             compileSdkVersion: 29,
             buildToolsVersion: "29.0.3",
             minSdkVersion    : 21,
@@ -17,7 +17,7 @@ ext{
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner"
     ]
 
-    appID = [
+    appId = [
             applicationId: "com.xpf.modular_gradle"
     ]
 
@@ -28,7 +28,7 @@ ext{
     ]
 
     //依赖相关
-    dependenciesID = [
+    dependencies_impl = [
             appcompat: 'androidx.appcompat:appcompat:1.2.0',
             constraintlayout:'androidx.constraintlayout:constraintlayout:2.0.4',
             junit: 'junit:junit:4.12',

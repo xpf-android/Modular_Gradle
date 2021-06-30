@@ -24,21 +24,21 @@ println username//168
 
 // 这一段不写就是直接使用的方式，能够正常运行
 // 定义变量的方式
-def androidID = rootProject.ext.androidID
-def appID = rootProject.ext.appID
-def dependenciesID = rootProject.ext.dependenciesID
+def androidId = rootProject.ext.androidId
+def appId = rootProject.ext.appId
+def dependencies_impl = rootProject.ext.dependencies_impl
 
 android {
-    compileSdkVersion androidID.compileSdkVersion
-    buildToolsVersion androidID.buildToolsVersion
+    compileSdkVersion androidId.compileSdkVersion
+    buildToolsVersion androidId.buildToolsVersion
 
     defaultConfig {
-        applicationId appID.applicationId
-        minSdkVersion androidID.minSdkVersion
-        targetSdkVersion androidID.targetSdkVersion
-        versionCode androidID.versionCode
-        versionName androidID.versionName
-        testInstrumentationRunner androidID.testInstrumentationRunner
+        applicationId appId.applicationId
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+        testInstrumentationRunner androidId.testInstrumentationRunner
 
 
         // 这个方法接收三个非空参数
@@ -80,5 +80,5 @@ android {
 //dependencies里面的依赖引入方式，好比Map的形式，有key, value，循环遍历引入依赖
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    dependenciesID.each {k, v -> implementation v}
+    dependencies_impl.each {k, v -> implementation v}
 }
