@@ -24,31 +24,40 @@ println username//168
 
 // 这一段不写就是直接使用的方式，能够正常运行
 // 定义变量的方式
-def androidId = rootProject.ext.androidId
-def appId = rootProject.ext.appId
-def dependencies_impl = rootProject.ext.dependencies_impl
+def androidID = rootProject.ext.androidID
+def appID = rootProject.ext.appID
+def dependenciesID = rootProject.ext.dependenciesID
 
 android {
-    compileSdkVersion androidId.compileSdkVersion
-    buildToolsVersion androidId.buildToolsVersion
+    compileSdkVersion androidID.compileSdkVersion
+    buildToolsVersion androidID.buildToolsVersion
 
     defaultConfig {
-        applicationId appId.applicationId
-        minSdkVersion androidId.minSdkVersion
-        targetSdkVersion androidId.targetSdkVersion
-        versionCode androidId.versionCode
-        versionName androidId.versionName
+        applicationId appID.applicationId
+        minSdkVersion androidID.minSdkVersion
+        targetSdkVersion androidID.targetSdkVersion
+        versionCode androidID.versionCode
+        versionName androidID.versionName
+        testInstrumentationRunner androidID.testInstrumentationRunner
 
-        testInstrumentationRunner androidId.testInstrumentationRunner
+
+        // 这个方法接收三个非空参数
+        // 第一个参数：确定值的类型
+        // 第二个参数：指定key的名称
+        // 第三个参数：传值(必须是String)
+        // 为什么定义这个参数？因为在src代码中可能需要跨模块交互，如果是组件化模式(开发环境)，模块间的交互
+        // 相当于两个App交互，显然是行不通的，所以需要一个变量，通过它来判断当前的环境
+        // 切记：不能在android节点下，只能在defaultConfig或buildTypes节点下
+        // rebuild/build 之后，BuildConfig文件中就要boolean isRelease 属性了，可以通过它来判断运行环境
+        buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
     }
+
 
     buildTypes {
         debug {
             buildConfigField("String", "debug_url", "\"${url.debug_entrance}\"")
         }
-    }
 
-    buildTypes {
         release {
             minifyEnabled false
             buildConfigField("String", "release_url", "\"${url.release_entrance}\"")
@@ -71,5 +80,5 @@ android {
 //dependencies里面的依赖引入方式，好比Map的形式，有key, value，循环遍历引入依赖
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    dependencies_impl.each {k, v -> implementation v}
+    dependenciesID.each {k, v -> implementation v}
 }
