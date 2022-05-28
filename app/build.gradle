@@ -45,10 +45,10 @@ android {
         // 第一个参数：确定值的类型
         // 第二个参数：指定key的名称
         // 第三个参数：传值(必须是String)
-        // 为什么定义这个参数？因为在src代码中可能需要跨模块交互，如果是组件化模式(开发环境)，模块间的交互
+        // 为什么定义这个参数？因为在src(java)代码中可能需要跨模块交互，如果是组件化模式(开发环境)，模块间的交互
         // 相当于两个App交互，显然是行不通的，所以需要一个变量，通过它来判断当前的环境
         // 切记：不能在android节点下，只能在defaultConfig或buildTypes节点下
-        // rebuild/build 之后，BuildConfig文件中就要boolean isRelease 属性了，可以通过它来判断运行环境
+        // rebuild/build 之后，BuildConfig文件中就要boolean isRelease 属性了，可以在java代码中通过它来判断运行环境
         buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
     }
 
